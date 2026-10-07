@@ -26,3 +26,10 @@ Genera `reporte_estado.json` y `logs/<equipo>.log`.
 ## Declaración de uso de IA
 Se usó un asistente de IA (Claude) como apoyo para estructurar el script y la guía de VirtualBox.
 Todo el código fue revisado y entendido por el estudiante. 
+
+## Extra: REST vs SSH
+Además de SSH, el script obtiene el estado del MikroTik por la API REST
+(`https://<host>/rest`, librería `requests`) y compara ambos resultados en
+`reporte_estado.json` (campo `comparacion`) y en la columna `SSH=REST` de la tabla.
+Requiere `www-ssl` habilitado en el MikroTik (`/ip service enable www-ssl`)
+y el paquete `requests` (incluido en `requirements.txt`).
