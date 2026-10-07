@@ -1,15 +1,15 @@
 {
-  "generado": "2026-10-06T20:42:08",
+  "generado": "2026-10-06T21:00:07",
   "equipos": [
     {
       "nombre": "mt-lab",
       "host": "192.168.56.10",
       "device_type": "mikrotik_routeros",
-      "fecha": "2026-10-06T20:42:03",
+      "fecha": "2026-10-06T21:00:01",
       "estado": "ok",
       "datos": {
         "nombre_equipo": "CHR",
-        "uptime": "53m1s",
+        "uptime": "1h10m59s",
         "version": "7.23.7 (long-term)",
         "interfaces": [
           {
@@ -31,6 +31,74 @@
         "cambios": false,
         "verificado": true,
         "resultado": "sin cambios"
+      },
+      "datos_rest": {
+        "nombre_equipo": "CHR",
+        "uptime": "1h11m2s",
+        "version": "7.23.7 (long-term)",
+        "interfaces": [
+          {
+            "interfaz": "ether1",
+            "ip": "192.168.56.10/24"
+          },
+          {
+            "interfaz": "ether1",
+            "ip": "192.168.56.105/24"
+          },
+          {
+            "interfaz": "lo-ssh-18",
+            "ip": "10.253.0.18/32"
+          }
+        ],
+        "gateway_defecto": "192.168.56.1"
+      },
+      "comparacion": {
+        "nombre_equipo": {
+          "ssh": "CHR",
+          "rest": "CHR",
+          "coincide": true
+        },
+        "version": {
+          "ssh": "7.23.7 (long-term)",
+          "rest": "7.23.7 (long-term)",
+          "coincide": true
+        },
+        "gateway_defecto": {
+          "ssh": "192.168.56.1",
+          "rest": "192.168.56.1",
+          "coincide": true
+        },
+        "interfaces": {
+          "ssh": [
+            [
+              "ether1",
+              "192.168.56.10/24"
+            ],
+            [
+              "ether1",
+              "192.168.56.105/24"
+            ],
+            [
+              "lo-ssh-18",
+              "10.253.0.18/32"
+            ]
+          ],
+          "rest": [
+            [
+              "ether1",
+              "192.168.56.10/24"
+            ],
+            [
+              "ether1",
+              "192.168.56.105/24"
+            ],
+            [
+              "lo-ssh-18",
+              "10.253.0.18/32"
+            ]
+          ],
+          "coincide": true
+        }
       }
     }
   ]

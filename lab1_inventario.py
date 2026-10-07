@@ -4,12 +4,13 @@
 lab1_inventario.py
 Laboratorio 1 - ITIEL-13 Redes Programables (UTN)
 Inventario YAML -> SSH con Netmiko -> estado estructurado -> reporte JSON
-+ cambio idempotente en MikroTik (interfaz lo-ssh-<N> con IP 10.253.0.<N>/32).
++ cambio idempotente en MikroTik (interfaz lo-ssh-<N> con IP 10.253.0.<N>/32)
++ extra: estado por REST y comparacion SSH vs REST.
 
 Uso:
-    python lab1_inventario.py --n 7 --nombre "Juan Perez"
-    python lab1_inventario.py --n 7 --nombre "Juan Perez"            # 2.a vez: SIN CAMBIOS
-    python lab1_inventario.py --n 7 --nombre "Juan Perez" --limpiar
+    python lab1_inventario.py --n 18 --nombre "Vanessa Mairena"
+    python lab1_inventario.py --n 18 --nombre "Vanessa Mairena"            # 2.a vez: SIN CAMBIOS
+    python lab1_inventario.py --n 18 --nombre "Vanessa Mairena" --limpiar
 """
 import argparse
 import getpass
@@ -20,9 +21,14 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+import requests
+import urllib3
 import yaml
 from netmiko import ConnectHandler
 from netmiko.exceptions import NetmikoAuthenticationException, NetmikoTimeoutException
+
+# El certificado de REST es autofirmado (laboratorio): se silencia el aviso
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ---------------------------------------------------------------------------
 # Comandos por device_type (agregar un fabricante = agregar una entrada)
@@ -78,6 +84,7 @@ def parse_mikrotik(crudo):
     return {"nombre_equipo": nombre_equipo, "uptime": rec.get("uptime"),
             "version": rec.get("version"), "interfaces": ips, "gateway_defecto": gw}
 
+
 def parse_cisco(crudo):
     m = re.search(r"hostname\s+(\S+)", crudo["identidad"])
     u = re.search(r"uptime is (.+)", crudo["recursos"])
@@ -93,6 +100,38 @@ def parse_cisco(crudo):
 
 
 PARSERS = {"mikrotik_routeros": parse_mikrotik, "cisco_ios": parse_cisco}
+
+
+# ---------------------------------------------------------------------------
+# Extra: estado por REST y comparación SSH vs REST
+# ---------------------------------------------------------------------------
+def estado_rest(host, usuario, clave):
+    """Mismos datos que por SSH, pero vía API REST de RouterOS."""
+    base = f"https://{host}/rest"
+
+    def get(ruta):
+        r = requests.get(base + ruta, auth=(usuario, clave), verify=False, timeout=15)
+        r.raise_for_status()
+        return r.json()
+
+    ips = [{"interfaz": d.get("interface", ""), "ip": d.get("address", "")}
+           for d in get("/ip/address")]
+    rutas = get("/ip/route?dst-address=0.0.0.0/0")
+    rec = get("/system/resource")
+    return {"nombre_equipo": get("/system/identity").get("name"),
+            "uptime": rec.get("uptime"), "version": rec.get("version"),
+            "interfaces": ips,
+            "gateway_defecto": rutas[0].get("gateway") if rutas else None}
+
+
+def comparar(ssh, rest):
+    """Compara SSH vs REST. El uptime se omite porque difiere por segundos."""
+    pares = lambda d: sorted((i["interfaz"], i["ip"]) for i in d["interfaces"])
+    campos = {"nombre_equipo": (ssh["nombre_equipo"], rest["nombre_equipo"]),
+              "version": (ssh["version"], rest["version"]),
+              "gateway_defecto": (ssh["gateway_defecto"], rest["gateway_defecto"]),
+              "interfaces": (pares(ssh), pares(rest))}
+    return {k: {"ssh": a, "rest": b, "coincide": a == b} for k, (a, b) in campos.items()}
 
 
 # ---------------------------------------------------------------------------
@@ -116,6 +155,7 @@ def existe(conn, ruta, filtro):
 
 
 def asegurar(conn, etiqueta, ruta, filtro, cmd_add):
+    """Crea el elemento solo si no existe (idempotencia)."""
     if existe(conn, ruta, filtro):
         print(f"    [SIN CAMBIOS] {etiqueta} ya existe")
         return False
@@ -141,6 +181,7 @@ def configurar_mikrotik(conn, n, nombre):
 
 
 def limpiar_mikrotik(conn, n):
+    """Elimina solo los objetos de este estudiante (lo-ssh-<N>)."""
     iface, ip = f"lo-ssh-{n}", f"10.253.0.{n}/32"
     for etiqueta, ruta, filtro in (
         (f"IP {ip}", "/ip address", f'interface="{iface}" address="{ip}"'),
@@ -186,19 +227,31 @@ def procesar_equipo(eq, args):
         resultado["estado"] = "error: usuario o clave incorrectos"
     except Exception as e:  # noqa: BLE001
         resultado["estado"] = f"error: {e}"
+
+    # Extra: mismo estado por REST y comparación (un fallo de REST no invalida SSH)
+    if resultado["datos"] and dt == "mikrotik_routeros":
+        try:
+            rest = estado_rest(eq["host"], eq["usuario"], dispositivo["password"])
+            resultado["datos_rest"] = rest
+            resultado["comparacion"] = comparar(resultado["datos"], rest)
+        except Exception as e:  # noqa: BLE001
+            resultado["datos_rest"] = {"error": str(e)}
+
     if resultado["estado"] != "ok":
         print(f"[ERROR] {eq['nombre']}: {resultado['estado']}")
     return resultado
 
 
 def imprimir_tabla(resultados):
-    cols = ["Equipo", "IP", "Estado", "Interfaces", "Gateway"]
+    cols = ["Equipo", "IP", "Estado", "Interfaces", "Gateway", "SSH=REST"]
     filas = []
     for r in resultados:
         d = r["datos"] or {}
+        comp = r.get("comparacion")
+        rest_ok = "-" if not comp else ("si" if all(v["coincide"] for v in comp.values()) else "NO")
         filas.append([r["nombre"], r["host"], r["estado"][:40],
                       str(len(d.get("interfaces", []))) if d else "-",
-                      str(d.get("gateway_defecto") or "-")])
+                      str(d.get("gateway_defecto") or "-"), rest_ok])
     anchos = [max(len(c), *(len(f[i]) for f in filas)) for i, c in enumerate(cols)]
     linea = "+" + "+".join("-" * (a + 2) for a in anchos) + "+"
     fmt = lambda f: "| " + " | ".join(x.ljust(a) for x, a in zip(f, anchos)) + " |"
