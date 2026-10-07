@@ -67,15 +67,16 @@ def terse_a_lista(salida):
 
 
 def parse_mikrotik(crudo):
-    ident = texto_a_dict(crudo["identidad"])
+    # RouterOS parte el nombre en una letra por línea (C / H / R): se unen todas
+    m = re.search(r"name:\s*(.*)", crudo["identidad"], re.S)
+    nombre_equipo = "".join(m.group(1).split()) if m else None
     rec = texto_a_dict(crudo["recursos"])
     ips = [{"interfaz": r.get("interface", ""), "ip": r.get("address", "")}
            for r in terse_a_lista(crudo["ips"])]
     rutas = terse_a_lista(crudo["ruta"])
     gw = rutas[0].get("gateway") if rutas else None
-    return {"nombre_equipo": ident.get("name"), "uptime": rec.get("uptime"),
+    return {"nombre_equipo": nombre_equipo, "uptime": rec.get("uptime"),
             "version": rec.get("version"), "interfaces": ips, "gateway_defecto": gw}
-
 
 def parse_cisco(crudo):
     m = re.search(r"hostname\s+(\S+)", crudo["identidad"])
