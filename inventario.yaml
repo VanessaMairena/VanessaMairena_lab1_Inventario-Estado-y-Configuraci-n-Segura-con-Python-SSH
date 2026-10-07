@@ -1,0 +1,15 @@
+# Inventario SIN contraseñas. La clave se toma de LAB_PASS_<NOMBRE>
+# (mt-lab -> LAB_PASS_MT_LAB) o se pide con getpass.
+equipos:
+  - nombre: mt-lab
+    host: 192.168.56.10        # MikroTik CHR en VirtualBox (host-only)
+    device_type: mikrotik_routeros
+    usuario: admin
+    rol: escritura
+
+  # Extra multivendor (opcional): descomentar si tiene un Cisco
+  # - nombre: cisco-lab
+  #   host: 192.168.56.20
+  #   device_type: cisco_ios
+  #   usuario: admin
+  #   rol: lectura
