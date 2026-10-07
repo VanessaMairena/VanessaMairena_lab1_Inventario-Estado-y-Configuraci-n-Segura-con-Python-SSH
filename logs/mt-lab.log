@@ -4180,7 +4180,7 @@ Press F1 for help
 
 [********@CHR] > /system resource print
 
-                   uptime: 50m15s                     
+                   uptime: 53m1s                      
                   version: 7.23.7 (long-term)         
                build-time: 2026-09-16 12:19:15        
          factory-software: 7.1                        
@@ -4189,11 +4189,11 @@ Press F1 for help
                       cpu: 12th                       
                 cpu-count: 1                          
             cpu-frequency: 2495MHz                    
-                 cpu-load: 1%                         
+                 cpu-load: 9%                         
            free-hdd-space: 69.2MiB                    
           total-hdd-space: 89.2MiB                    
-  write-sect-since-reboot: 1608                       
-         write-sect-total: 1608                       
+  write-sect-since-reboot: 1648                       
+         write-sect-total: 1648                       
         architecture-name: x86_64                     
                board-name: CHR innotek GmbH VirtualBox
                  platform: MikroTik                   
