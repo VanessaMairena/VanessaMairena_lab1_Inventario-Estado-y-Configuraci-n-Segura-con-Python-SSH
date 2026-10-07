@@ -7,9 +7,4 @@ equipos:
     usuario: admin
     rol: escritura
 
-  # Extra multivendor (opcional): descomentar si tiene un Cisco
-  # - nombre: cisco-lab
-  #   host: 192.168.56.20
-  #   device_type: cisco_ios
-  #   usuario: admin
-  #   rol: lectura
+ 
