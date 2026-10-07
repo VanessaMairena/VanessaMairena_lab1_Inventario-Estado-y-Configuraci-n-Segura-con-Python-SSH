@@ -1,15 +1,15 @@
 {
-  "generado": "2026-10-06T20:20:38",
+  "generado": "2026-10-06T20:23:37",
   "equipos": [
     {
       "nombre": "mt-lab",
       "host": "192.168.56.10",
       "device_type": "mikrotik_routeros",
-      "fecha": "2026-10-06T20:20:32",
+      "fecha": "2026-10-06T20:23:32",
       "estado": "ok",
       "datos": {
         "nombre_equipo": "C",
-        "uptime": "31m30s",
+        "uptime": "34m30s",
         "version": "7.23.7 (long-term)",
         "interfaces": [
           {
@@ -19,14 +19,18 @@
           {
             "interfaz": "ether1",
             "ip": "192.168.56.105/24"
+          },
+          {
+            "interfaz": "lo-ssh-18",
+            "ip": "10.253.0.18/32"
           }
         ],
         "gateway_defecto": "192.168.56.1"
       },
       "configuracion": {
-        "cambios": true,
+        "cambios": false,
         "verificado": true,
-        "resultado": "CAMBIOS APLICADOS"
+        "resultado": "sin cambios"
       }
     }
   ]

@@ -4180,11 +4180,11 @@ Press F1 for help
 
 [********@CHR] > /system resource print
 
-                   uptime: 31m30s                     
+                   uptime: 34m30s                     
                   version: 7.23.7 (long-term)         
                build-time: 2026-09-16 12:19:15        
          factory-software: 7.1                        
-              free-memory: 806.9MiB                   
+              free-memory: 806.6MiB                   
              total-memory: 1024.0MiB                  
                       cpu: 12th                       
                 cpu-count: 1                          
@@ -4192,8 +4192,8 @@ Press F1 for help
                  cpu-load: 8%                         
            free-hdd-space: 69.2MiB                    
           total-hdd-space: 89.2MiB                    
-  write-sect-since-reboot: 1224                       
-         write-sect-total: 1224                       
+  write-sect-since-reboot: 1528                       
+         write-sect-total: 1528                       
         architecture-name: x86_64                     
                board-name: CHR innotek GmbH VirtualBox
                  platform: MikroTik                   
@@ -4219,6 +4219,7 @@ Press F1 for help
 
 0   address=192.168.56.10/24 network=192.168.56.0 interface=ether1 actual-interface=ether1 vrf=main
 1 D address=192.168.56.105/24 network=192.168.56.0 interface=ether1 actual-interface=ether1 vrf=main
+2   comment=Vanessa Mairena address=10.253.0.18/32 network=10.253.0.18 interface=lo-ssh-18 actual-interface=lo-ssh-18 vrf=main
 
 
 
@@ -4260,28 +4261,9 @@ Press F1 for help
 
 
 
-[********@CHR] > :put [/interface bridge find where name="lo-ssh-7"]
+[********@CHR] > :put [/interface bridge find where name="lo-ssh-18"]
 
-
-
-
-[********@CHR] > 
-
-
-
-
-[********@CHR] > 
-
-
-
-
-[********@CHR] > 
-
-
-
-
-[********@CHR] > /interface bridge add name=lo-ssh-7 comment="Vanessa Mairena"
-
+*6
 
 
 
@@ -4300,28 +4282,9 @@ Press F1 for help
 
 
 
-[********@CHR] > :put [/ip address find where interface="lo-ssh-7" address="10.253.0.7/32"]
+[********@CHR] > :put [/ip address find where interface="lo-ssh-18" address="10.253.0.18/32"]
 
-
-
-
-[********@CHR] > 
-
-
-
-
-[********@CHR] > 
-
-
-
-
-[********@CHR] > 
-
-
-
-
-[********@CHR] > /ip address add address=10.253.0.7/32 interface=lo-ssh-7 comment="Vanessa Mairena"
-
+*5
 
 
 
@@ -4340,9 +4303,9 @@ Press F1 for help
 
 
 
-[********@CHR] > /ip address print terse where interface="lo-ssh-7"
+[********@CHR] > /ip address print terse where interface="lo-ssh-18"
 
-2 comment=Vanessa Mairena address=10.253.0.7/32 network=10.253.0.7 interface=lo-ssh-7 actual-interface=lo-ssh-7 vrf=main
+2 comment=Vanessa Mairena address=10.253.0.18/32 network=10.253.0.18 interface=lo-ssh-18 actual-interface=lo-ssh-18 vrf=main
 
 
 
