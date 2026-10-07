@@ -17,12 +17,12 @@ Si no existe, el script la pide con getpass.
 
 ## Ejecución
 ```bash
-python lab1_inventario.py --n 7 --nombre "Su Nombre"             # estado + config
-python lab1_inventario.py --n 7 --nombre "Su Nombre"             # 2.a vez: sin cambios
-python lab1_inventario.py --n 7 --nombre "Su Nombre" --limpiar   # borra solo lo suyo
+python lab1_inventario.py --n 18 --nombre "Vanessa Mairena"             # estado + config
+python lab1_inventario.py --n 18 --nombre "Vanessa Mairena"             # 2.a vez: sin cambios
+python lab1_inventario.py --n 18 --nombre "Vanessa Mairena" --limpiar   # borra solo lo suyo
 ```
 Genera `reporte_estado.json` y `logs/<equipo>.log`.
 
 ## Declaración de uso de IA
 Se usó un asistente de IA (Claude) como apoyo para estructurar el script y la guía de VirtualBox.
-Todo el código fue revisado y entendido por el estudiante. (Ajuste esta sección a la realidad.)
+Todo el código fue revisado y entendido por el estudiante. 
