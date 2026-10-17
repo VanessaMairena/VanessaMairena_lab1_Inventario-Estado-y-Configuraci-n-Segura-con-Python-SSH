@@ -7,4 +7,9 @@ equipos:
     usuario: admin
     rol: escritura
 
+    - nombre: mt-apagado
+    host: 192.168.56.99
+    device_type: mikrotik_routeros
+    usuario: admin
+    rol: lectura
  
