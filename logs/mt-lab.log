@@ -4180,20 +4180,20 @@ Press F1 for help
 
 [********@CHR] > /system resource print
 
-                   uptime: 1h10m59s                   
+                   uptime: 1h24m45s                   
                   version: 7.23.7 (long-term)         
                build-time: 2026-09-16 12:19:15        
          factory-software: 7.1                        
-              free-memory: 806.1MiB                   
+              free-memory: 804.8MiB                   
              total-memory: 1024.0MiB                  
                       cpu: 12th                       
                 cpu-count: 1                          
             cpu-frequency: 2495MHz                    
-                 cpu-load: 10%                        
+                 cpu-load: 20%                        
            free-hdd-space: 69.2MiB                    
           total-hdd-space: 89.2MiB                    
-  write-sect-since-reboot: 2400                       
-         write-sect-total: 2400                       
+  write-sect-since-reboot: 2552                       
+         write-sect-total: 2552                       
         architecture-name: x86_64                     
                board-name: CHR innotek GmbH VirtualBox
                  platform: MikroTik                   
@@ -4218,8 +4218,8 @@ Press F1 for help
 [********@CHR] > /ip address print terse
 
 0   address=192.168.56.10/24 network=192.168.56.0 interface=ether1 actual-interface=ether1 vrf=main
-1 D address=192.168.56.105/24 network=192.168.56.0 interface=ether1 actual-interface=ether1 vrf=main
-2   comment=Vanessa Mairena address=10.253.0.18/32 network=10.253.0.18 interface=lo-ssh-18 actual-interface=lo-ssh-18 vrf=main
+1   comment=Vanessa Mairena address=10.253.0.18/32 network=10.253.0.18 interface=lo-ssh-18 actual-interface=lo-ssh-18 vrf=main
+2 D address=192.168.56.105/24 network=192.168.56.0 interface=ether1 actual-interface=ether1 vrf=main
 
 
 
@@ -4305,7 +4305,7 @@ Press F1 for help
 
 [********@CHR] > /ip address print terse where interface="lo-ssh-18"
 
-2 comment=Vanessa Mairena address=10.253.0.18/32 network=10.253.0.18 interface=lo-ssh-18 actual-interface=lo-ssh-18 vrf=main
+1 comment=Vanessa Mairena address=10.253.0.18/32 network=10.253.0.18 interface=lo-ssh-18 actual-interface=lo-ssh-18 vrf=main
 
 
 

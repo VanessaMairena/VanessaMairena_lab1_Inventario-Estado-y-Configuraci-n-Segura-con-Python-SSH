@@ -1,15 +1,15 @@
 {
-  "generado": "2026-10-06T21:00:07",
+  "generado": "2026-10-17T20:37:25",
   "equipos": [
     {
       "nombre": "mt-lab",
       "host": "192.168.56.10",
       "device_type": "mikrotik_routeros",
-      "fecha": "2026-10-06T21:00:01",
+      "fecha": "2026-10-17T20:36:59",
       "estado": "ok",
       "datos": {
         "nombre_equipo": "CHR",
-        "uptime": "1h10m59s",
+        "uptime": "1h24m45s",
         "version": "7.23.7 (long-term)",
         "interfaces": [
           {
@@ -17,12 +17,12 @@
             "ip": "192.168.56.10/24"
           },
           {
-            "interfaz": "ether1",
-            "ip": "192.168.56.105/24"
-          },
-          {
             "interfaz": "lo-ssh-18",
             "ip": "10.253.0.18/32"
+          },
+          {
+            "interfaz": "ether1",
+            "ip": "192.168.56.105/24"
           }
         ],
         "gateway_defecto": "192.168.56.1"
@@ -34,7 +34,7 @@
       },
       "datos_rest": {
         "nombre_equipo": "CHR",
-        "uptime": "1h11m2s",
+        "uptime": "1h24m48s",
         "version": "7.23.7 (long-term)",
         "interfaces": [
           {
@@ -42,12 +42,12 @@
             "ip": "192.168.56.10/24"
           },
           {
-            "interfaz": "ether1",
-            "ip": "192.168.56.105/24"
-          },
-          {
             "interfaz": "lo-ssh-18",
             "ip": "10.253.0.18/32"
+          },
+          {
+            "interfaz": "ether1",
+            "ip": "192.168.56.105/24"
           }
         ],
         "gateway_defecto": "192.168.56.1"
@@ -100,6 +100,15 @@
           "coincide": true
         }
       }
+    },
+    {
+      "nombre": "mt-apagado",
+      "host": "192.168.56.99",
+      "device_type": "mikrotik_routeros",
+      "fecha": "2026-10-17T20:37:05",
+      "estado": "error: sin conexión (IP, SSH, firewall o red)",
+      "datos": null,
+      "configuracion": null
     }
   ]
 }

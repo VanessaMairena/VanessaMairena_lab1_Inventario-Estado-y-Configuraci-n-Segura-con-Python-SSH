@@ -7,9 +7,8 @@ equipos:
     usuario: admin
     rol: escritura
 
-    - nombre: mt-apagado
-    host: 192.168.56.99
+  - nombre: mt-apagado
+    host: 192.168.56.99        # no existe a propósito: evidencia del R3
     device_type: mikrotik_routeros
     usuario: admin
     rol: lectura
- 
